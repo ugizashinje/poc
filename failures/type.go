@@ -6,9 +6,10 @@ import (
 )
 
 type Error struct {
-	err   error
-	Text  string
-	Stack []string
+	err      error
+	notified byte
+	Text     string
+	Stack    []string
 }
 
 func create() *Error {
@@ -20,7 +21,11 @@ func create() *Error {
 		height--
 		stack = append(stack, fmt.Sprintf("%s %s:%d", frame.Function, frame.File, frame.Line))
 	}
-	return &Error{Stack: stack}
+
+	fmt.Println(stack)
+	return &Error{Stack: stack,
+		notified: 0,
+	}
 }
 func (e *Error) Error() string {
 	return e.Text
@@ -32,7 +37,18 @@ func (e *Error) WithInfo(format string, args ...interface{}) SuperError {
 	return e
 }
 
+func (e *Error) Notify() SuperError {
+	fmt.Printf("NOTIFY %s\n", e.Text)
+	return e
+}
+
+func (e *Error) String() string {
+	return e.Text
+}
+
 type SuperError interface {
 	Error() string
 	WithInfo(fmt string, args ...interface{}) SuperError
+	Notify() SuperError
+	String() string
 }
