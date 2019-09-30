@@ -28,12 +28,13 @@ branches:
     - /^[0-9]+\.[0-9]+\.[0-9]+$/
 
 before_install:
+  - sed -e 's/^port.*/port = 5432/' /etc/postgresql/11/main/postgresql.conf > postgresql.conf
+  - sudo /var/lib/postgresql/11/main /var/log/postgresql/postgresql-11-main.log
+  - psql -U postgres -c "create extension postgis"
   # - sudo service postgresql stop
-  # - sed -e 's/^port.*/port = 5432/' /etc/postgresql/11/main/postgresql.conf > postgresql.conf
   # - sudo chown postgres postgresql.conf
   # - sudo mv postgresql.conf /etc/postgresql/11/main
   # - sudo service postgresql start 11
-  - psql -U postgres -c "create extension postgis"
   # - mkdir $GOPATH/deps || true
   # - export GOPATH=$GOPATH/deps:$GOPATH
   # - export PATH=$GOPATH/deps/bin:$PATH
