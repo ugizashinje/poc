@@ -21,7 +21,7 @@ branches:
   except:
     - /^[0-9]+\.[0-9]+\.[0-9]+$/
 
-script:
+before-install:
   - sudo apt-get install -yq --no-install-suggests --no-install-recommends postgresql-common
   - sudo service postgresql stop
   - sudo apt install -yq --no-install-suggests --no-install-recommends postgresql-11 postgresql-client-11
