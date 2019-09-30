@@ -1,0 +1,40 @@
+language:
+  - go
+
+go:
+  - '1.10'
+
+addons:
+  postgresql: "11.5"
+  firefox: 45.4.0
+  apt:
+    sources:
+     - google-chrome
+    packages:
+     - google-chrome-stable fluxbox
+     - postgresql-11
+     - postgresql-11-postgis-2.5
+     - postgresql-client-11
+  sauce_connect: true
+
+  services:
+  - postgresql
+services:
+  - postgresql
+  - xvfb
+
+branches:
+  except:
+    - /^[0-9]+\.[0-9]+\.[0-9]+$/
+
+before_install:
+  # - sudo service postgresql stop
+  # - sed -e 's/^port.*/port = 5432/' /etc/postgresql/11/main/postgresql.conf > postgresql.conf
+  # - sudo chown postgres postgresql.conf
+  # - sudo mv postgresql.conf /etc/postgresql/11/main
+  # - sudo service postgresql start 11
+  - psql -U postgres -c "create extension postgis"
+  # - mkdir $GOPATH/deps || true
+  # - export GOPATH=$GOPATH/deps:$GOPATH
+  # - export PATH=$GOPATH/deps/bin:$PATH
+

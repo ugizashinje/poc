@@ -33,14 +33,15 @@ func Repo(ctx context.Context, name string) (string, failures.SuperError) {
 	fmt.Println("Child done ")
 
 	rows, err := db.Query(`select 'hello world' from dual`)
-
 	if err != nil {
 		return "", failures.SUBSCRIBER_DOES_NOT_EXSIS().Notify()
 	}
+	defer rows.Close()
+
 	for rows.Next() {
 		err := rows.Scan(&answer)
 		if err != nil {
-			return "", failures.SUBSCRIBER_DOES_NOT_EXSIS()
+			return "", failures.SUBSCRIBER_DO_NOT_NOTIFY()
 		}
 	}
 
