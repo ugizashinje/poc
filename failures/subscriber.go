@@ -7,10 +7,10 @@ func SUBSCRIBER_DOES_NOT_EXSIS() SuperError {
 	return instance
 }
 
-func SUBSCRIBER_DO_NOTIFY() SuperError {
+func SUBSCRIPTION_ABOUT_TO_EXPIRE() SuperError {
 
 	instance := create()
 	instance.status = 404
-	instance.Text = "No such user. "
+	instance.Text = "subscriber about to expire"
 	return instance
 }

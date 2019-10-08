@@ -6,11 +6,11 @@ import (
 )
 
 type Error struct {
-	err      error
-	notified byte
-	Text     string   `json:"error"`
-	Stack    []string `json:"-"`
-	status   int
+	err    error
+	notify bool
+	Text   string   `json:"error"`
+	Stack  []string `json:"-"`
+	status int
 }
 
 func create() *Error {
@@ -25,7 +25,7 @@ func create() *Error {
 
 	fmt.Println(stack)
 	return &Error{Stack: stack,
-		notified: 0,
+		notify: false,
 	}
 }
 func (e *Error) Error() string {
@@ -42,7 +42,7 @@ func (e *Error) WithInfo(format string, args ...interface{}) SuperError {
 }
 
 func (e *Error) Notify() SuperError {
-	fmt.Printf("NOTIFY %s\n", e.Text)
+	e.notify = true
 	return e
 }
 
