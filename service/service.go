@@ -38,7 +38,7 @@ func Repo(ctx *execution.Context, name string) (string, failures.SuperError) {
 	for rows.Next() {
 		err := rows.Scan(&answer)
 		if err != nil {
-			return "", failures.SUBSCRIBER_DO_NOT_NOTIFY()
+			return "", failures.SUBSCRIBER_DO_NOTIFY()
 		}
 	}
 

@@ -1,6 +1,7 @@
 package api
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -30,6 +31,7 @@ func wrap(handler func(c *execution.Context) (interface{}, failures.SuperError))
 
 		if err != nil {
 			superError := err.(failures.SuperError)
+			log.Printf("Response errors [%v]", superError)
 			ctx.Tx.Rollback()
 			ctx.Gin.JSON(superError.Status(), superError)
 			ctx.Gin.Abort()
@@ -42,6 +44,6 @@ func wrap(handler func(c *execution.Context) (interface{}, failures.SuperError))
 			return
 		}
 		ctx.Gin.JSON(http.StatusOK, result)
-
+		ctx.Gin.Abort()
 	}
 }

@@ -7,7 +7,7 @@ func SUBSCRIBER_DOES_NOT_EXSIS() SuperError {
 	return instance
 }
 
-func SUBSCRIBER_DO_NOT_NOTIFY() SuperError {
+func SUBSCRIBER_DO_NOTIFY() SuperError {
 
 	instance := create()
 	instance.status = 404
