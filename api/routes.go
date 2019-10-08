@@ -10,13 +10,10 @@ import (
 	"github.com/ugizashinje/epoc/service"
 )
 
-func InitRoutes() error {
+func InitRoutes() {
 	r := gin.Default()
-
 	r.GET("/parent/:name", wrap(parentHandler))
 	r.Run(":8080")
-
-	return nil
 }
 
 func wrap(handler func(c *execution.Context) (interface{}, failures.SuperError)) func(gc *gin.Context) {

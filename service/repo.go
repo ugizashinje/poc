@@ -7,11 +7,13 @@ import (
 
 func Repo(ctx *execution.Context, name string) (string, failures.SuperError) {
 	var answer string
-	rows, err := ctx.Tx.Query(`select 'hello world' from dual`)
-	defer rows.Close()
+	// rows, err := ctx.Tx.Query(`select version()`)
+	rows, err := ctx.Tx.Query(`select * from dual`)
 	if err != nil {
-		return "", failures.SUBSCRIBER_DOES_NOT_EXSIS().Notify()
+		return "", failures.SUBSCRIBER_DOES_NOT_EXSIS()
 	}
+
+	defer rows.Close()
 
 	for rows.Next() {
 		err := rows.Scan(&answer)
