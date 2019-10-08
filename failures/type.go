@@ -8,8 +8,9 @@ import (
 type Error struct {
 	err      error
 	notified byte
-	Text     string
-	Stack    []string
+	Text     string   `json:"error"`
+	Stack    []string `json:"-"`
+	status   int
 }
 
 func create() *Error {
@@ -29,6 +30,9 @@ func create() *Error {
 }
 func (e *Error) Error() string {
 	return e.Text
+}
+func (e *Error) Status() int {
+	return e.status
 }
 func (e *Error) WithInfo(format string, args ...interface{}) SuperError {
 	reFormat := "%s " + format
@@ -51,4 +55,5 @@ type SuperError interface {
 	WithInfo(fmt string, args ...interface{}) SuperError
 	Notify() SuperError
 	String() string
+	Status() int
 }
