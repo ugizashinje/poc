@@ -6,8 +6,14 @@ func SUBSCRIBER_DOES_NOT_EXSIS() SuperError {
 	instance.status = 404
 	return instance
 }
+func GENERAL() SuperError {
+	instance := create()
+	instance.Text = "Unkown error"
+	instance.status = 404
+	return instance
+}
 
-func SUBSCRIPTION_ABOUT_TO_EXPIRE() SuperError {
+func INVALID_TYPE() SuperError {
 
 	instance := create()
 	instance.status = 404

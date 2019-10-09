@@ -12,7 +12,6 @@ var Db *sql.DB
 func Parent(ctx *execution.Context, name string) (*string, failures.SuperError) {
 
 	res, err := Repo(ctx, name)
-
 	if err != nil {
 		return nil, err
 	}
